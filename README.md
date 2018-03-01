@@ -55,6 +55,10 @@ import {Doughnut} from 'react-chartjs-2';
 
 ### Properties
 
+======== I add some Pros for my jobs. =============
+* className: PropTypes.string
+* style: PropTypes.object
+=====================
 * data: (PropTypes.object | PropTypes.func).isRequired,
 * width: PropTypes.number,
 * height: PropTypes.number,

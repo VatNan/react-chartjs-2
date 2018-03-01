@@ -9,10 +9,12 @@ class ChartComponent extends React.Component {
   static getLabelAsKey = d => d.label;
 
   static propTypes = {
+    className: PropTypes.string,
     data: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.func
     ]).isRequired,
+    datasetKeyProvider: PropTypes.func,
     getDatasetAtEvent: PropTypes.func,
     getElementAtEvent: PropTypes.func,
     getElementsAtEvent: PropTypes.func,
@@ -22,6 +24,7 @@ class ChartComponent extends React.Component {
     options: PropTypes.object,
     plugins: PropTypes.arrayOf(PropTypes.object),
     redraw: PropTypes.bool,
+    style: PropTypes.object,
     type: function(props, propName, componentName) {
       if(!Chart.controllers[props[propName]]) {
         return new Error(
@@ -31,10 +34,10 @@ class ChartComponent extends React.Component {
       }
     },
     width: PropTypes.number,
-    datasetKeyProvider: PropTypes.func
   }
 
   static defaultProps = {
+    className: '',
     legend: {
       display: true,
       position: 'bottom'
@@ -44,7 +47,8 @@ class ChartComponent extends React.Component {
     width: 300,
     redraw: false,
     options: {},
-    datasetKeyProvider: ChartComponent.getLabelAsKey
+    datasetKeyProvider: ChartComponent.getLabelAsKey,
+    style: null,
   }
 
   componentWillMount() {
@@ -233,16 +237,25 @@ class ChartComponent extends React.Component {
   }
 
   ref = (element) => {
-    this.element = element
+    this.element = element;
   }
 
   render() {
-    const {height, width, onElementsClick} = this.props;
+    const {
+      height,
+      width,
+      onElementsClick,
+      className,
+      style,
+    } = this.props;
+    
 
     return (
       <canvas
         ref={this.ref}
         height={height}
+        className={className}
+        style={style}
         width={width}
         onClick={this.handleOnClick}
       />
